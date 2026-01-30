@@ -1,28 +1,22 @@
 class AppConfig {
-  // API Configuration
-  // Change this based on your environment:
-  // - For Web: "http://localhost:8080"
-  // - For Android Emulator: "http://10.0.2.2:8080"
-  // - For iOS Simulator: "http://localhost:8080"
-  // - For Physical Device: "http://YOUR_COMPUTER_IP:8080" (e.g., "http://192.168.1.100:8080")
+  // Use the static IP of your server
+  static const String serverIp = "102.223.95.166";
+  
+  // REST API URL
+  static const String apiBaseUrl = "http://$serverIp";
 
-  static const String apiBaseUrl = "http://102.223.95.166";
-
-  // WebSocket Configuration
-  static const String wsScheme = "ws";
+  // WebSocket URL (Explicitly use port 80 to prevent the ":0" error)
+  static const String wsBaseUrl = "ws://$serverIp:80";
 
   static String get httpUrl => apiBaseUrl;
 
-  static String get wsBaseUrl => apiBaseUrl.replaceFirst("http", wsScheme);
-
   static String getCounsellorWebSocketUrl(String token) {
+    // Result: ws://102.223.95.166:80/ws/counselors?token=...
     return "$wsBaseUrl/ws/counselors?token=$token";
   }
   
   static String getSessionWebSocketUrl(int sessionId, String token) {
+    // Result: ws://102.223.95.166:80/ws/session/22?token=...
     return "$wsBaseUrl/ws/session/$sessionId?token=$token";
   }
 }
-
-
-
